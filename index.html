@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="EcoRoads – Donate to fix potholes, clean roadsides, plant and maintain trees on road dividers. Making India's roads greener and safer together." />
+  <meta name="keywords"
+    content="donate, environment, potholes, roadside cleanliness, tree planting, green roads, India, UPI donation" />
+  <title>EcoRoads – Greener Roads, Better Cities</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Three.js for 3D hero animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span class="brand-icon">🌿</span>
+        <span class="brand-text">EcoRoads</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#causes" class="nav-link">Our Causes</a></li>
+        <li><a href="#impact" class="nav-link">Impact</a></li>
+        <li><a href="#updates" class="nav-link">Updates</a></li>
+        <li><a href="#donate" class="nav-link nav-cta">Donate Now</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="home">
+    <!-- 3D WebGL Canvas -->
+    <canvas id="heroCanvas" class="hero-3d-canvas"></canvas>
+
+    <div class="hero-bg">
+      <img src="hero.png" alt="Clean green roads" class="hero-img" id="heroParallaxImg" />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Floating 3D Orbs -->
+    <div class="hero-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge hero-anim" style="--delay:0.1s">
+        <span class="pulse-dot"></span>
+        <span>Join 12,400+ contributors</span>
+      </div>
+      <h1 class="hero-title hero-anim" style="--delay:0.25s">
+        Build <span class="gradient-text">Greener</span>,<br />
+        Safer Roads Together
+      </h1>
+      <p class="hero-subtitle hero-anim" style="--delay:0.4s">
+        Fix potholes · Clean roadsides · Plant & nurture trees on dividers.<br />
+        Every rupee creates real, visible change in your city.
+      </p>
+      <div class="hero-actions hero-anim" style="--delay:0.55s">
+        <a href="#donate" class="btn btn-primary" id="heroDonateCta">
+          <i class="fas fa-heart"></i> Donate Now
+        </a>
+        <a href="#causes" class="btn btn-outline">
+          <i class="fas fa-play-circle"></i> See Our Work
+        </a>
+      </div>
+      <!-- Mini stats -->
+      <div class="hero-stats hero-anim" style="--delay:0.7s">
+        <div class="stat-card">
+          <span class="stat-num" data-target="38">0</span>
+          <span class="stat-unit">Lakh+</span>
+          <span class="stat-label">Raised</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <span class="stat-num" data-target="1240">0</span>
+          <span class="stat-unit"></span>
+          <span class="stat-label">Potholes Fixed</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <span class="stat-num" data-target="8700">0</span>
+          <span class="stat-unit"></span>
+          <span class="stat-label">Trees Planted</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <span class="stat-num" data-target="420">0</span>
+          <span class="stat-unit">km</span>
+          <span class="stat-label">Roads Cleaned</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== TOTAL DONATION PROGRESS BAR ===== -->
+  <section class="progress-section" id="impact" data-section-animate>
+    <div class="container">
+      <div class="progress-header">
+        <div>
+          <h2 class="section-title">Community Fundraising Goal</h2>
+          <p class="section-sub">Together, we're reaching ₹1 Crore for cleaner, greener roads across India.</p>
+        </div>
+        <div class="total-raised-badge">
+          <span class="raised-label">Total Raised</span>
+          <span class="raised-amount" id="totalRaisedDisplay">₹38,47,250</span>
+        </div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill" style="width: 0%">
+            <div class="progress-glow"></div>
+          </div>
+          <div class="progress-milestone" style="left: 25%">
+            <div class="milestone-dot active"></div>
+            <span>₹25L</span>
+          </div>
+          <div class="progress-milestone" style="left: 50%">
+            <div class="milestone-dot active"></div>
+            <span>₹50L</span>
+          </div>
+          <div class="progress-milestone" style="left: 75%">
+            <div class="milestone-dot"></div>
+            <span>₹75L</span>
+          </div>
+        </div>
+        <div class="progress-labels">
+          <span>₹0</span>
+          <span class="goal-label">Goal: ₹1 Crore</span>
+        </div>
+      </div>
+      <div class="progress-breakdown">
+        <div class="breakdown-item">
+          <div class="breakdown-color" style="background: #22c55e"></div>
+          <span>Pothole Repair – 40%</span>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-color" style="background: #16a34a"></div>
+          <span>Garbage Cleanup – 25%</span>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-color" style="background: #15803d"></div>
+          <span>Tree Planting – 20%</span>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-color" style="background: #166534"></div>
+          <span>Tree Maintenance – 15%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUR CAUSES ===== -->
+  <section class="causes-section" id="causes" data-section-animate>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">What We Do</span>
+        <h2 class="section-title">Four Pillars of Change</h2>
+        <p class="section-sub">Your donation directly funds one or more of these mission areas across Indian cities.</p>
+      </div>
+      <div class="causes-grid">
+
+        <div class="cause-card" id="cause-potholes">
+          <div class="cause-icon-wrap pothole-icon">
+            <i class="fas fa-road"></i>
+          </div>
+          <div class="cause-tag">Top Priority</div>
+          <h3>Pothole Repair</h3>
+          <p>Identify and repair dangerous potholes on city roads — protecting commuters, reducing accidents, and
+            improving daily travel safety.</p>
+          <div class="cause-progress">
+            <div class="cause-progress-bar">
+              <div class="cause-fill" style="width: 72%; background: linear-gradient(90deg,#22c55e,#16a34a)"></div>
+            </div>
+            <div class="cause-progress-labels">
+              <span>₹15.4L raised</span>
+              <span>72%</span>
+            </div>
+          </div>
+          <a href="#donate" class="btn btn-cause" data-cause="Pothole Repair">Donate to Fix Roads</a>
+        </div>
+
+        <div class="cause-card" id="cause-garbage">
+          <div class="cause-icon-wrap garbage-icon">
+            <i class="fas fa-trash-alt"></i>
+          </div>
+          <h3>Garbage Management</h3>
+          <p>Clear illegal dumping on roadsides, install waste bins, and run awareness programs to keep our roads and
+            neighbourhoods clean.</p>
+          <div class="cause-progress">
+            <div class="cause-progress-bar">
+              <div class="cause-fill" style="width: 58%; background: linear-gradient(90deg,#f59e0b,#d97706)"></div>
+            </div>
+            <div class="cause-progress-labels">
+              <span>₹9.6L raised</span>
+              <span>58%</span>
+            </div>
+          </div>
+          <a href="#donate" class="btn btn-cause" data-cause="Garbage Management">Support Cleanup Drives</a>
+        </div>
+
+        <div class="cause-card" id="cause-planting">
+          <div class="cause-icon-wrap tree-icon">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h3>Tree Planting</h3>
+          <p>Plant native saplings along road dividers and medians to reduce urban heat, improve air quality, and
+            beautify streetscapes.</p>
+          <div class="cause-progress">
+            <div class="cause-progress-bar">
+              <div class="cause-fill" style="width: 45%; background: linear-gradient(90deg,#10b981,#059669)"></div>
+            </div>
+            <div class="cause-progress-labels">
+              <span>₹7.7L raised</span>
+              <span>45%</span>
+            </div>
+          </div>
+          <a href="#donate" class="btn btn-cause" data-cause="Tree Planting">Plant a Tree Today</a>
+        </div>
+
+        <div class="cause-card" id="cause-maintenance">
+          <div class="cause-icon-wrap maintain-icon">
+            <i class="fas fa-tree"></i>
+          </div>
+          <h3>Tree Maintenance</h3>
+          <p>Ensure planted trees survive and thrive — watering, pruning, pest control, and replacement of dead saplings
+            on dividers.</p>
+          <div class="cause-progress">
+            <div class="cause-progress-bar">
+              <div class="cause-fill" style="width: 38%; background: linear-gradient(90deg,#06b6d4,#0284c7)"></div>
+            </div>
+            <div class="cause-progress-labels">
+              <span>₹5.8L raised</span>
+              <span>38%</span>
+            </div>
+          </div>
+          <a href="#donate" class="btn btn-cause" data-cause="Tree Maintenance">Fund Tree Care</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DONATION SECTION ===== -->
+  <section class="donate-section" id="donate" data-section-animate>
+    <div class="donate-bg-pattern"></div>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge light">Make a Difference</span>
+        <h2 class="section-title light">Choose Your Cause & Donate</h2>
+        <p class="section-sub light">100% transparent. Every rupee is tracked and reported publicly.</p>
+      </div>
+
+      <div class="donate-wrapper">
+        <!-- LEFT: Cause Selector + Amount -->
+        <div class="donate-form-card">
+          <div class="form-step active" id="step1">
+            <h3 class="step-title"><span class="step-num">1</span> Select Cause</h3>
+            <div class="cause-selector">
+              <label class="cause-opt selected" id="opt-all">
+                <input type="radio" name="cause" value="All Causes" checked />
+                <i class="fas fa-globe-asia"></i>
+                <span>All Causes</span>
+              </label>
+              <label class="cause-opt" id="opt-pothole">
+                <input type="radio" name="cause" value="Pothole Repair" />
+                <i class="fas fa-road"></i>
+                <span>Potholes</span>
+              </label>
+              <label class="cause-opt" id="opt-garbage">
+                <input type="radio" name="cause" value="Garbage Management" />
+                <i class="fas fa-trash-alt"></i>
+                <span>Garbage</span>
+              </label>
+              <label class="cause-opt" id="opt-planting">
+                <input type="radio" name="cause" value="Tree Planting" />
+                <i class="fas fa-seedling"></i>
+                <span>Tree Planting</span>
+              </label>
+              <label class="cause-opt" id="opt-maintenance">
+                <input type="radio" name="cause" value="Tree Maintenance" />
+                <i class="fas fa-tree"></i>
+                <span>Tree Care</span>
+              </label>
+            </div>
+
+            <h3 class="step-title"><span class="step-num">2</span> Choose Amount</h3>
+            <div class="amount-grid">
+              <button class="amount-btn" data-amount="51" id="amt-51">₹51</button>
+              <button class="amount-btn" data-amount="101" id="amt-101">₹101</button>
+              <button class="amount-btn selected" data-amount="251" id="amt-251">₹251</button>
+              <button class="amount-btn" data-amount="501" id="amt-501">₹501</button>
+              <button class="amount-btn" data-amount="1001" id="amt-1001">₹1,001</button>
+              <button class="amount-btn" data-amount="2501" id="amt-2501">₹2,501</button>
+            </div>
+            <div class="custom-amount-wrap">
+              <span class="rupee-sym">₹</span>
+              <input type="number" id="customAmount" class="custom-amount-input" placeholder="Enter custom amount"
+                min="10" />
+            </div>
+
+            <h3 class="step-title"><span class="step-num">3</span> Payment Method</h3>
+            <div class="payment-tabs">
+              <button class="pay-tab active" data-method="upi" id="tabUPI">
+                <i class="fas fa-mobile-alt"></i> UPI
+              </button>
+              <button class="pay-tab" data-method="card" id="tabCard">
+                <i class="fas fa-credit-card"></i> Debit / Credit Card
+              </button>
+              <button class="pay-tab" data-method="netbanking" id="tabNet">
+                <i class="fas fa-university"></i> Net Banking
+              </button>
+            </div>
+
+            <!-- UPI Panel -->
+            <div class="payment-panel active" id="panel-upi">
+              <div class="upi-options">
+                <button class="upi-app-btn" id="gpay-btn">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/512px-Google_Pay_Logo.svg.png"
+                    alt="Google Pay" class="upi-logo" />
+                  Google Pay
+                </button>
+                <button class="upi-app-btn" id="phonepe-btn">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/PhonePe_Logo.svg/512px-PhonePe_Logo.svg.png"
+                    alt="PhonePe" class="upi-logo" />
+                  PhonePe
+                </button>
+                <button class="upi-app-btn" id="paytm-btn">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/512px-Paytm_Logo_%28standalone%29.svg.png"
+                    alt="Paytm" class="upi-logo" />
+                  Paytm
+                </button>
+              </div>
+              <div class="upi-id-wrap">
+                <p class="or-divider"><span>or enter UPI ID</span></p>
+                <div class="upi-input-row">
+                  <i class="fas fa-at"></i>
+                  <input type="text" id="upiId" placeholder="yourname@upi" class="upi-input" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Panel -->
+            <div class="payment-panel" id="panel-card">
+              <div class="card-preview" id="cardPreview">
+                <div class="card-front">
+                  <div class="card-logo-row">
+                    <span class="card-bank-name">EcoRoads Pay</span>
+                    <i class="fas fa-wifi card-wifi"></i>
+                  </div>
+                  <div class="card-chip"></div>
+                  <div class="card-number-display" id="cardNumDisplay">•••• •••• •••• ••••</div>
+                  <div class="card-bottom-row">
+                    <div>
+                      <div class="card-label">CARDHOLDER</div>
+                      <div class="card-value" id="cardNameDisplay">YOUR NAME</div>
+                    </div>
+                    <div>
+                      <div class="card-label">EXPIRES</div>
+                      <div class="card-value" id="cardExpDisplay">MM/YY</div>
+                    </div>
+                    <i class="fab fa-cc-visa card-scheme" id="cardScheme"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="form-fields">
+                <div class="field-group">
+                  <label for="cardNumber">Card Number</label>
+                  <div class="input-icon-wrap">
+                    <i class="fas fa-credit-card"></i>
+                    <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456"
+                      class="form-input" />
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field-group">
+                    <label for="cardName">Cardholder Name</label>
+                    <div class="input-icon-wrap">
+                      <i class="fas fa-user"></i>
+                      <input type="text" id="cardName" placeholder="Full Name" class="form-input" />
+                    </div>
+                  </div>
+                  <div class="field-group">
+                    <label for="cardExpiry">Expiry</label>
+                    <div class="input-icon-wrap">
+                      <i class="fas fa-calendar-alt"></i>
+                      <input type="text" id="cardExpiry" maxlength="5" placeholder="MM/YY" class="form-input" />
+                    </div>
+                  </div>
+                  <div class="field-group">
+                    <label for="cardCvv">CVV</label>
+                    <div class="input-icon-wrap">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" id="cardCvv" maxlength="3" placeholder="•••" class="form-input" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Net Banking Panel -->
+            <div class="payment-panel" id="panel-netbanking">
+              <select class="netbank-select" id="bankSelect">
+                <option value="">-- Select Your Bank --</option>
+                <option>State Bank of India (SBI)</option>
+                <option>HDFC Bank</option>
+                <option>ICICI Bank</option>
+                <option>Axis Bank</option>
+                <option>Bank of Baroda</option>
+                <option>Punjab National Bank</option>
+                <option>Canara Bank</option>
+                <option>Kotak Mahindra Bank</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="donor-info">
+              <div class="field-group">
+                <label for="donorName">Your Name</label>
+                <div class="input-icon-wrap">
+                  <i class="fas fa-user-circle"></i>
+                  <input type="text" id="donorName" placeholder="Full Name" class="form-input" />
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="donorEmail">Email <span id="emailOptionalText"
+                    style="display:none; color: rgba(255,255,255,0.4); font-weight: normal; font-size: 0.85em; margin-left: 4px;">(optional)</span></label>
+                <div class="input-icon-wrap">
+                  <i class="fas fa-envelope"></i>
+                  <input type="email" id="donorEmail" placeholder="email@example.com" class="form-input" />
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="donorPhone">Phone</label>
+                <div class="input-icon-wrap">
+                  <i class="fas fa-phone"></i>
+                  <input type="tel" id="donorPhone" placeholder="+91 98765 43210" class="form-input" />
+                </div>
+              </div>
+              <label class="checkbox-wrap">
+                <input type="checkbox" id="anonymous" />
+                <span class="checkmark"></span>
+                Donate anonymously
+              </label>
+              <label class="checkbox-wrap">
+                <input type="checkbox" id="receiptEmail" checked />
+                <span class="checkmark"></span>
+                Send donation receipt to my email
+              </label>
+            </div>
+
+            <button class="btn btn-donate-submit" id="donateSubmitBtn">
+              <i class="fas fa-shield-alt"></i>
+              Donate Securely
+            </button>
+            <p class="secure-note"><i class="fas fa-lock"></i> 256-bit SSL encrypted · 80G Tax Benefit eligible</p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Summary + Testimonials -->
+        <div class="donate-sidebar">
+          <div class="donation-summary-card" id="summaryCard">
+            <h4>Donation Summary</h4>
+            <div class="summary-row">
+              <span>Cause</span>
+              <span id="summCause" class="summary-val">All Causes</span>
+            </div>
+            <div class="summary-row">
+              <span>Amount</span>
+              <span id="summAmount" class="summary-val highlight">₹251</span>
+            </div>
+            <div class="summary-row">
+              <span>Payment</span>
+              <span id="summPayment" class="summary-val">UPI</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-impact">
+              <h5>Your Impact</h5>
+              <div class="impact-item" id="impactItem">
+                <i class="fas fa-road"></i>
+                <span id="impactText">Helps repair 1 sq.m of road + funds 2 waste-bin installations</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trust-badges">
+            <div class="trust-item">
+              <i class="fas fa-certificate"></i>
+              <span>80G Tax Exemption</span>
+            </div>
+            <div class="trust-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Secure Payments</span>
+            </div>
+            <div class="trust-item">
+              <i class="fas fa-eye"></i>
+              <span>100% Transparent</span>
+            </div>
+            <div class="trust-item">
+              <i class="fas fa-file-invoice"></i>
+              <span>Instant Receipt</span>
+            </div>
+          </div>
+
+          <div class="recent-donors" id="recentDonors">
+            <h4>Recent Donors</h4>
+            <div class="donor-feed" id="donorFeed">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ADMIN UPDATES SECTION ===== -->
+  <section class="updates-section" id="updates" data-section-animate>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Admin Published</span>
+        <h2 class="section-title">Where Your Money Goes</h2>
+        <p class="section-sub">Our team publishes regular updates on how donations are being used across projects.</p>
+      </div>
+
+      <div class="updates-grid" id="updatesGrid">
+        <!-- Populated by JS from updates data -->
+      </div>
+
+      <!-- Admin Panel (toggle) -->
+      <div class="admin-toggle-wrap">
+        <button class="btn btn-admin-toggle" id="adminToggleBtn">
+          <i class="fas fa-user-shield"></i> Admin Panel
+        </button>
+      </div>
+
+      <div class="admin-panel" id="adminPanel" style="display:none;">
+        <div class="admin-panel-header">
+          <h3><i class="fas fa-user-shield"></i> Admin – Publish Update</h3>
+          <p>Create and publish a public update about how donation funds are being used.</p>
+        </div>
+        <div class="admin-form">
+          <div class="field-group">
+            <label for="adminTitle">Update Title</label>
+            <input type="text" id="adminTitle" class="form-input"
+              placeholder="e.g. 320 potholes repaired in South Mumbai" />
+          </div>
+          <div class="field-row-2">
+            <div class="field-group">
+              <label for="adminCategory">Category</label>
+              <select id="adminCategory" class="form-input select-input">
+                <option>Pothole Repair</option>
+                <option>Garbage Management</option>
+                <option>Tree Planting</option>
+                <option>Tree Maintenance</option>
+                <option>General Update</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="adminAmount">Amount Used (₹)</label>
+              <div class="input-icon-wrap">
+                <i class="fas fa-rupee-sign"></i>
+                <input type="number" id="adminAmount" class="form-input" placeholder="250000" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="adminLocation">Location</label>
+              <div class="input-icon-wrap">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" id="adminLocation" class="form-input" placeholder="City, Area" />
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="adminBody">Update Details</label>
+            <textarea id="adminBody" class="form-textarea"
+              placeholder="Describe what was accomplished, how many beneficiaries, before/after details..."></textarea>
+          </div>
+          <div class="field-group">
+            <label for="adminTotalRaised">Update Total Raised Amount (₹)</label>
+            <div class="input-icon-wrap">
+              <i class="fas fa-rupee-sign"></i>
+              <input type="number" id="adminTotalRaised" class="form-input" placeholder="3847250" value="3847250" />
+            </div>
+          </div>
+          <div class="admin-actions">
+            <button class="btn btn-primary" id="publishUpdateBtn">
+              <i class="fas fa-paper-plane"></i> Publish Update
+            </button>
+            <button class="btn btn-outline dark" id="previewUpdateBtn">
+              <i class="fas fa-eye"></i> Preview
+            </button>
+            <button class="btn btn-secondary" id="cancelAdminBtn">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="how-section" data-section-animate>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Process</span>
+        <h2 class="section-title">How Your Donation Works</h2>
+      </div>
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-circle">
+            <i class="fas fa-hand-holding-heart"></i>
+            <div class="step-number">01</div>
+          </div>
+          <h4>You Donate</h4>
+          <p>Choose your cause and amount. Pay securely via UPI, Card or Net Banking.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-circle">
+            <i class="fas fa-project-diagram"></i>
+            <div class="step-number">02</div>
+          </div>
+          <h4>Funds Allocated</h4>
+          <p>Our team allocates funds to verified on-ground projects in your region.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-circle">
+            <i class="fas fa-hammer"></i>
+            <div class="step-number">03</div>
+          </div>
+          <h4>Work Begins</h4>
+          <p>Licensed contractors and volunteers execute the repair, cleanup or planting.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-item">
+          <div class="step-circle">
+            <i class="fas fa-chart-bar"></i>
+            <div class="step-number">04</div>
+          </div>
+          <h4>You See Results</h4>
+          <p>Regular photo updates, reports and progress milestones published publicly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials-section" data-section-animate>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Community Voices</span>
+        <h2 class="section-title">What Our Donors Say</h2>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The pothole in front of my office that caused 3 accidents is finally fixed! I can see exactly where my
+            ₹500 went."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RK</div>
+            <div>
+              <strong>Rajesh Kumar</strong>
+              <span>Mumbai, Maharashtra</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card featured">
+          <div class="stars">★★★★★</div>
+          <p>"Donated ₹2000 for tree planting last year. Today I see 18 saplings growing on the divider near my home.
+            This is real impact!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background: linear-gradient(135deg,#f59e0b,#d97706)">PM</div>
+            <div>
+              <strong>Priya Mehta</strong>
+              <span>Bengaluru, Karnataka</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The transparency is amazing. I can see monthly expenditure reports and photos. Will keep donating every
+            month."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background: linear-gradient(135deg,#06b6d4,#0284c7)">AS</div>
+            <div>
+              <strong>Ananya Sharma</strong>
+              <span>Delhi, NCR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="nav-brand" style="margin-bottom:1rem">
+            <span class="brand-icon">🌿</span>
+            <span class="brand-text" style="color:#fff">EcoRoads</span>
+          </div>
+          <p>Building cleaner, greener, safer roads for India — one donation at a time.</p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-links-col">
+          <h5>Causes</h5>
+          <ul>
+            <li><a href="#causes">Pothole Repair</a></li>
+            <li><a href="#causes">Garbage Cleanup</a></li>
+            <li><a href="#causes">Tree Planting</a></li>
+            <li><a href="#causes">Tree Maintenance</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h5>Organisation</h5>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#updates">Reports & Accounts</a></li>
+            <li><a href="#">Our Partners</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h5>Legal</h5>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">80G Certificate</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="mailto:hello@ecoroads.in"><i class="fas fa-envelope"></i> hello@ecoroads.in</a></li>
+            <li><a href="tel:+911800000000"><i class="fas fa-phone"></i> 1800-ECO-ROAD</a></li>
+            <li><span><i class="fas fa-map-marker-alt"></i> Mumbai, India</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 EcoRoads Foundation. Registered under Section 12A & 80G of Income Tax Act. CIN: U85300MH2020NPL123456
+        </p>
+        <div class="payment-logos">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/100px-Google_Pay_Logo.svg.png"
+            alt="GPay" class="pay-logo-footer" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/PhonePe_Logo.svg/100px-PhonePe_Logo.svg.png"
+            alt="PhonePe" class="pay-logo-footer" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/200px-UPI-Logo-vector.svg.png"
+            alt="UPI" class="pay-logo-footer" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png"
+            alt="Visa" class="pay-logo-footer" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png"
+            alt="Mastercard" class="pay-logo-footer" />
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SUCCESS MODAL ===== -->
+  <div class="modal-overlay" id="successModal" style="display:none">
+    <div class="modal-card">
+      <div class="modal-icon success-icon">
+        <div class="checkmark-circle">
+          <svg viewBox="0 0 52 52">
+            <circle class="checkmark-circle-svg" cx="26" cy="26" r="25" fill="none" />
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+        </div>
+      </div>
+      <h3>Thank You, <span id="modalDonorName">Friend</span>! 🌿</h3>
+      <p>Your donation of <strong id="modalAmount">₹251</strong> for <strong id="modalCause">All Causes</strong> has
+        been received.</p>
+      <p class="modal-sub">A receipt will be sent to your email. Together we're making our roads greener!</p>
+      <div class="modal-receipt">
+        <div class="receipt-row"><span>Transaction ID</span><span id="txnId">ECO-2026-XXXX</span></div>
+        <div class="receipt-row"><span>Date</span><span id="txnDate"></span></div>
+        <div class="receipt-row"><span>Status</span><span class="status-success">✓ Successful</span></div>
+      </div>
+      <button class="btn btn-primary" id="closeModal">Continue <i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN LOGIN MODAL ===== -->
+  <div class="modal-overlay" id="adminLoginModal" style="display:none">
+    <div class="modal-card" style="max-width:400px">
+      <div class="modal-icon admin-icon">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      <h3>Admin Login</h3>
+      <p>Enter the admin password to access the control panel.</p>
+      <div class="field-group" style="margin-top:1.5rem">
+        <div class="input-icon-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="adminPassInput" class="form-input" placeholder="Enter admin password" />
+        </div>
+      </div>
+      <p class="secure-note" style="margin-top: 0.5rem; font-size: 0.75rem; color: #6b7280;">Hint: password is
+        <code>admin123</code></p>
+      <div style="display:flex;gap:1rem;margin-top:1.5rem">
+        <button class="btn btn-primary" id="adminLoginBtn" style="flex:1">Login</button>
+        <button class="btn btn-secondary" id="cancelLoginBtn" style="flex:1">Cancel</button>
+      </div>
+      <p class="admin-error" id="adminError"
+        style="display:none;color:#ef4444;margin-top:0.5rem;text-align:center;font-size:0.85rem">Incorrect password. Try
+        again.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
